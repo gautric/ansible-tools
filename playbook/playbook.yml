@@ -1,6 +1,6 @@
 ---
 - name: APIC HOST Configuration
-  hosts: apic-host
+  hosts: my-host
   tasks:
 
   - name: Loop all BD 
