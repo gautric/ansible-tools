@@ -53,4 +53,5 @@ class InventoryModule(BaseInventoryPlugin):
         self.inventory.add_host("my-host")
         self.inventory.set_variable("my-host", "ansible_connection", "local")     
         self.inventory.set_variable("my-host", "user", "my-user")
+        print("Test Script")
   
