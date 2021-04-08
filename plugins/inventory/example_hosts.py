@@ -1,0 +1,1 @@
+../../inventory_plugins/example_hosts.py
