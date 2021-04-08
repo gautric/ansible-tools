@@ -51,7 +51,13 @@ class InventoryModule(BaseInventoryPlugin):
         super(InventoryModule, self).parse(inventory, loader, path)
         
         self.inventory.add_host("my-host")
+        self.inventory.add_host("my-host-v2")
+
         self.inventory.set_variable("my-host", "ansible_connection", "local")     
         self.inventory.set_variable("my-host", "user", "my-user")
+        
+        self.inventory.set_variable("my-host-v2", "user1", "my-user")
+        self.inventory.set_variable("my-host-v2", "user2", "my-user")
+
         #print("Test Script")
   
