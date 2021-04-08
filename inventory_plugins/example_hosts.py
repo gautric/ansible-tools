@@ -59,7 +59,7 @@ class InventoryModule(BaseInventoryPlugin):
         self.inventory.set_variable("my-host-v2", "user1", "my-user")
         self.inventory.set_variable("my-host-v2", "user2", "my-user")
 
-        self.inventory.set_group("mon-group")
+        self.inventory.add_group("mon-group")
 
         #print("Test Script")
   
