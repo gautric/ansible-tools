@@ -1,0 +1,16 @@
+---
+- name: APIC HOST Configuration
+  hosts: apic-host
+  tasks:
+
+  - name: Loop all BD 
+    ansible.builtin.debug:
+      msg: Name {{ item.name }} Desc {{ item.description }}      
+    loop: "{{ bd_list }}"  
+
+  - name: Loop all EPG
+    ansible.builtin.debug:
+      msg: Name {{ item.name }} Desc {{ item.description }}      
+    loop: "{{ epg_list }}"  
+
+
