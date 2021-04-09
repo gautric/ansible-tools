@@ -72,5 +72,4 @@ class InventoryModule(BaseInventoryPlugin):
         self.inventory.set_variable("mon-group","my-scalar-string","one value")
 
 
-        #print("Test Script")
   
