@@ -61,5 +61,16 @@ class InventoryModule(BaseInventoryPlugin):
 
         self.inventory.add_group("mon-group")
 
+        my_list = [
+            {"name":"my-name","description":"my Description"},
+            {"name":"mon-name","description":"ma Description"},
+            {"name":"meine name","description":"meine description"}
+        ]
+
+        self.inventory.set_variable("mon-group","my-list",my_list)
+        self.inventory.set_variable("mon-group","my-scalar-int",42)
+        self.inventory.set_variable("mon-group","my-scalar-string","one value")
+
+
         #print("Test Script")
   
