@@ -6,9 +6,9 @@
 
 plugin: excel         # Name of the plugin
 
-excel_file: "../../TestACIConfigFile.xlsx"
+excel_file: "inventory.xlsx"
 
-excel_groups: toto,all
+excel_groups: all
 
 
 

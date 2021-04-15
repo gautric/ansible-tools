@@ -41,10 +41,35 @@ class InventoryModule(BaseInventoryPlugin):
         Returns:
             bool True if the file is valid, else False
         """
-        # Unused, always return True
-        
+        valid = False
+        if super(InventoryModule, self).verify_file(path):
+            if path.endswith(('excel.yaml')):
+                valid = True
+
+        return valid
         return True
 
+    def read_xls_dict(self, input_file):
+        "Read the XLS file and return as Ansible facts"
+        spreadsheet = {}
+        try:
+            wb = openpyxl.load_workbook(input_file, data_only=True)
+            for sheet in wb.get_sheet_names():
+                ansible_sheet_name = sheet
+                spreadsheet[ansible_sheet_name.lower().replace(' ','_')] = []
+                current_sheet = wb.get_sheet_by_name(sheet)
+                dict_keys = []
+                for c in range(1,current_sheet.max_column + 1):
+                    dict_keys.append(current_sheet.cell(row=1,column=c).value)
+                for r in range (2,current_sheet.max_row + 1):
+                    temp_dict = {}
+                    for c in range(1,current_sheet.max_column + 1):
+                        temp_dict[dict_keys[c-1].lower().replace(' ','_')] = current_sheet.cell(row=r,column=c).value
+                    spreadsheet[ansible_sheet_name].append(temp_dict)
+        except IOError:
+            return (1, "IOError on input file:%s" % input_file)
+
+        return (0,spreadsheet)
 
     def parse(self, inventory, loader, path, cache):
         """Parse and populate the inventory with data about hosts.
