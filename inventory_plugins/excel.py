@@ -93,13 +93,16 @@ class InventoryModule(BaseInventoryPlugin):
 
         [self.inventory.add_group(i) for i in excel_groups]
 
+        ret, excel = read_xls_dict(excel_file)
+
         my_list = [
             {"name":"my-name","description":"my Description"},
             {"name":"mon-name","description":"ma Description"},
             {"name":"meine name","description":"meine description"}
         ]
 
-        [self.inventory.set_variable(i,"my-list",my_list) for i in excel_groups]
+#        [self.inventory.set_variable(i,"my-list",my_list) for i in excel_groups]
+        [self.inventory.set_variable(i,"excel",excel) for i in excel_groups]
 
 
 
