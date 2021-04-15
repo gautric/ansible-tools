@@ -57,8 +57,8 @@ class InventoryModule(BaseInventoryPlugin):
         try:
             wb = openpyxl.load_workbook(input_file, data_only=True)
             for sheet in wb.get_sheet_names():
-                ansible_sheet_name = sheet
-                spreadsheet[ansible_sheet_name.lower().replace(' ','_')] = []
+                ansible_sheet_name = sheet.lower().replace(' ','_')
+                spreadsheet[ansible_sheet_name] = []
                 current_sheet = wb.get_sheet_by_name(sheet)
                 dict_keys = []
                 for c in range(1,current_sheet.max_column + 1):
@@ -97,15 +97,5 @@ class InventoryModule(BaseInventoryPlugin):
 
         ret, excel = self.read_xls_dict(excel_file)
 
-        my_list = [
-            {"name":"my-name","description":"my Description"},
-            {"name":"mon-name","description":"ma Description"},
-            {"name":"meine name","description":"meine description"}
-        ]
-
-#        [self.inventory.set_variable(i,"my-list",my_list) for i in excel_groups]
-        [self.inventory.set_variable(i,"excel",excel) for i in excel_groups]
-
-
-
-  
+        for key in excel.keys():
+                [self.inventory.set_variable(i,key, excel[key]) for i in excel_groups]
