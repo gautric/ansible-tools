@@ -42,6 +42,7 @@ class InventoryModule(BaseInventoryPlugin):
             bool True if the file is valid, else False
         """
         # Unused, always return True
+        
         return True
 
 
