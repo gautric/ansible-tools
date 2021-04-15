@@ -1,0 +1,14 @@
+---
+
+# ansible-inventory -i excel.yaml --playbook-dir ./ --list
+# ansible-inventory -i excel.yaml --playbook-dir ./ --graph --vars
+
+
+plugin: excel         # Name of the plugin
+
+excel_file: "../../TestACIConfigFile.xlsx"
+
+excel_groups: toto,all
+
+
+
