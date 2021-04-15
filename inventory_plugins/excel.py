@@ -1,5 +1,7 @@
 from ansible.plugins.inventory import BaseInventoryPlugin
 
+import openpyxl
+
 ANSIBLE_METADATA = {
     'metadata_version': '0.9.0',
     'status': ['preview'],
