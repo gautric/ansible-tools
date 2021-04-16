@@ -6,6 +6,7 @@ plugin: excel         # Name of the plugin
 #excel_file: "inventory.xlsx"
 #hosts_groups: host,_all
 #layout: sheet_header
+#TODO ignore_tabs:
 
 
 
