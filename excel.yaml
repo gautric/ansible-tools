@@ -1,14 +1,11 @@
 ---
-
 # ansible-inventory -i excel.yaml --playbook-dir ./ --list
 # ansible-inventory -i excel.yaml --playbook-dir ./ --graph --vars
-
-
 plugin: excel         # Name of the plugin
 
-excel_file: "inventory.xlsx"
-
-excel_groups: all
+#excel_file: "inventory.xlsx"
+#hosts_groups: host,_all
+#layout: sheet_header
 
 
 

@@ -20,9 +20,14 @@ options:
         default: inventory.xlsx
         required: false
         type: str
-    excel_groups:
+    hosts_groups:
         description: add inventory to this group
-        default: all
+        default: _all
+        required: false
+        type: str
+    layout:
+        description: Excel layout 
+        default: sheet_header
         required: false
         type: str
 author:
@@ -49,7 +54,6 @@ class InventoryModule(BaseInventoryPlugin):
                 valid = True
 
         return valid
-        return True
 
     def read_xls_dict(self, input_file):
         "Read the XLS file and return as Ansible facts"
@@ -73,6 +77,25 @@ class InventoryModule(BaseInventoryPlugin):
 
         return (0,spreadsheet)
 
+    def sheet_header(self, inventory):
+        """ 
+
+        """
+        excel_file = self.get_option('excel_file')
+        hosts_groups = self.get_option('hosts_groups').split(",")
+
+        for i in hosts_groups:
+            if i.find('_') == 0:
+                self.inventory.add_group(i.replace('_','', 1))
+            else:
+                self.inventory.add_host(i)
+
+        ret, excel = self.read_xls_dict(excel_file)
+
+        for key in excel.keys():
+                [self.inventory.set_variable(i.replace('_','',1), key, excel[key]) for i in hosts_groups]
+                
+
     def parse(self, inventory, loader, path, cache):
         """Parse and populate the inventory with data about hosts.
 
@@ -90,12 +113,8 @@ class InventoryModule(BaseInventoryPlugin):
         # update any options declared in DOCUMENTATION as needed
         config = self._read_config_data(path)
 
-        excel_file = self.get_option('excel_file')
-        excel_groups = self.get_option('excel_groups').split(",")
+        layout = self.get_option('layout')
 
-        [self.inventory.add_group(i) for i in excel_groups]
+        class_method = getattr(self, layout)
 
-        ret, excel = self.read_xls_dict(excel_file)
-
-        for key in excel.keys():
-                [self.inventory.set_variable(i,key, excel[key]) for i in excel_groups]
+        class_method(inventory)
